@@ -12,6 +12,9 @@
   runAfter:
   - clone
 
+spec:
+  params: image-registry.openshift-image-registry.svc:5000/$SN_ICR_NAMESPACE/accounts:latest
+    - name: build-image
 
 - name: build
  workspaces:
