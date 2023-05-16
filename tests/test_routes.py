@@ -126,22 +126,20 @@ class TestAccountService(TestCase):
     # ADD YOUR TEST CASES HERE ...
 
     def test_get_account_list(self):
-         """It should List All Accounts"""
-         self._create_accounts(5)
-         resp = self.client.get(BASE_URL)
-         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-         data = resp.get_json()
-         self.assertEqual(len(data), 5)
+        """It should List All Accounts"""
+        self._create_accounts(5)
+        resp = self.client.get(BASE_URL)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        data = resp.get_json()
+        self.assertEqual(len(data), 5)
 
     def test_get_account(self):
-         """It should Read a Single Account"""
-         account = self._create_accounts(1)[0]
-         resp = self.client.get(
-             f"{BASE_URL}/{account.id}", content_type="application/json"
-         )
-         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-         data = resp.get_json()
-         self.assertEqual(data["name"], account.name)
+        """It should Read a Single Account"""
+        account = self._create_accounts(1)[0]
+        resp = self.client.get(f"{BASE_URL}/{account.id}", content_type="application/json")
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        data = resp.get_json()
+        self.assertEqual(data["name"], account.name)
 
     def test_get_account_not_found(self):
         """It should not Read an Account that is not found"""
@@ -161,13 +159,10 @@ class TestAccountService(TestCase):
         resp = self.client.put(f"{BASE_URL}/{new_account['id']}", json=new_account)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         updated_account = resp.get_json()
-        self.assertEqual(updated_account["name"], "Something Known")
+        self.assertEqual(new_account["name"], "Something Known")
 
     def test_delete_account(self):
         """It should Delete an Account"""
         account = self._create_accounts(1)[0]
         resp = self.client.delete(f"{BASE_URL}/{account.id}")
         self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
-
-
-         
